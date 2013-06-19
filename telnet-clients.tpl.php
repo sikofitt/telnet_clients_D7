@@ -1,3 +1,16 @@
+<?php 
+
+/**************************************************
+ * @file telnet-clients.tpl.php
+ * Variables : 
+ * $path = path to the module
+ * $telnet_links = array of links : (SyncTerm, 
+ * Termix, mTelnet, Qodem, QModem are the keys, 
+ * if the value = 0 this means we don't want it 
+ * to show.  Taken from config page.)
+ *************************************************/
+
+?>
 <table class="telnet-table-link-block">
         <tbody>
                <?php if( $telnet_links['SyncTerm'] != '0' ) { ?>
