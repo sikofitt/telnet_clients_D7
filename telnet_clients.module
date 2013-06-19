@@ -1,0 +1,226 @@
+<?php
+/**
+ * Implements hook_help().
+ */
+
+function telnet_clients_help($path, $arg) {
+
+  $output = '';
+  
+  switch ($path) {
+    case 'admin/help#telnet_clients':
+      $output .= t('Shows links for different telnet clients');
+      break;
+    case 'admin/config/modules#description':
+      $output .= t('Shows links for different telnet clients');
+      break;
+    case 'admin/config/bbs/telnet_clients/settings':
+      $output .= t('Settings for Telnet Clients Module.');
+      break;
+    case 'admin/modules#telnet_clients':
+      $output .= t('Settings for Telnet Clients Module.');
+      break;
+  }
+
+  return $output;
+
+} 
+
+/**
+ * Implements hook_permission().
+ */
+
+function telnet_clients_permission() {
+  
+  return array(
+    'administrate telnet_clients' => array(
+      'title' => t('Administrate telnet clients settings'),
+      'description' => t('Allow users to administer the telnet clients settings'),
+    ),
+  );
+
+}
+
+/**
+ * Implements hook_access().
+ */
+
+function telnet_clients_access() {
+
+  return user_access('administrate telnet_clients');
+
+}
+
+/**
+ * Implements hook_menu().
+ *
+ */
+
+function telnet_clients_menu() {
+
+  $items['admin/config/content/telnet_clients'] = array(
+    'title' => 'Telnet Clients Configuration',
+    'description' => 'Configure the telnet clients module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('telnet_clients_options'),
+    'access arguments' => array('administrate telnet_clients'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+
+}
+
+/**
+ * Creates the settings menu at admin/config/content/telnet_clients
+ *
+ */
+
+function telnet_clients_options() {
+
+  if(variable_get('telnet_clients_display', 0) == 0) {
+
+    variable_set('telnet_clients_display',
+      Array(
+        'SyncTerm'        =>  'SyncTerm',
+        'Termix'          =>  'Termix',
+        'mTelnet'         =>  'mTelnet',
+        'Qodem'           =>  'Qodem',
+        'QModem'          =>  'QModem',
+      )
+    );
+       
+  }
+
+  $form['telnet_clients_display'] = array(
+    '#type' => 'checkboxes',
+    '#name' => 'telnet_clients_display',
+    '#options' => drupal_map_assoc(Array(t('SyncTerm'), t('Termix'), t('mTelnet'), t('Qodem'), t('QModem') ) ),
+    '#title' => t('Which telnet client links would you like to show?'),
+    '#default_value'   => variable_get('telnet_clients_display', 0),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ */
+function telnet_clients_block_info() {
+  $blocks['telnet_clients'] = array(
+    'info' => t('Telnet Clients List'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_init().
+ */
+
+function telnet_clients_init() {
+  
+  $path = drupal_get_path('module', 'telnet_clients');
+  
+  drupal_add_css($path . '/css/telnet_clients.css');
+
+}
+
+/**
+ * Implements hook_theme().
+ */
+
+function telnet_clients_theme() {
+
+  return array(
+    'telnet_clients' => array(
+      'variables' => array(
+        'telnet_links' => NULL,
+        'path' => NULL,
+      ),
+      'template' => 'telnet-clients',
+    ),
+  );
+
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ */
+function telnet_clients_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'telnet_clients':
+      
+	$path = drupal_get_path('module', 'telnet_clients');
+	$output = "";
+
+	$output .= '
+<table class="telnet-table-link-block">
+	<tbody>
+		<tr>
+			<td class="img">
+				<a href="http://syncterm.bbsdev.net/" target="_blank">
+					<img alt="SyncTerm" src="/'.$path.'/images/syncterm.png" />
+				</a>
+			</td>
+			<td>
+				<a href="http://syncterm.bbsdev.net/" target="_blank">SyncTERM</a>
+				is available for *nix/osx/win32 and a bunch of other oses.
+			</td>
+
+		</tr>
+		 <tr>
+                        <td class="img">
+                                <a href="http://sourceforge.net/projects/termix/" target="_blank">
+                                        <img class="termix" alt="mTelnet (OS/2, Win32)" src="/'.$path.'/images/termix.png" />
+                                </a>
+                        </td>
+                        <td><a href="http://sourceforge.net/projects/termix/" target="_blank">Termix</a> is available for *nix</td>
+                </tr>
+
+		<tr>
+			<td class="img">
+				<a href="http://mt32.bbses.info/" target="_blank">
+					<img alt="mTelnet (OS/2, Win32)" src="/'.$path.'/images/mtel.png" />
+				</a>
+			</td>
+			<td><a href="http://mt32.bbses.info/" target="_blank">mTelnet</a> is available for os2/win32.</td>
+		</tr>
+		<tr>
+                        <td class="img">
+                                <a href="http://sourceforge.net/projects/qodem/" target="_blank">
+                                        <img alt="Qodem (*nix, OS/2, Win32)" src="/'.$path.'/images/qodem.png" />
+                                </a>
+                        </td>
+                        <td><a href="http://sourceforge.net/projects/qodem/" target="_blank">Qodem</a> is available for *nix/osx/win32.</td>
+                </tr>
+		<tr>
+                        <td class="img">
+                                <a href="http://qodem.sourceforge.net/about.html#qmodem" target="_blank">
+                                        <img alt="QModem (DOS, Win32)" src="/'.$path.'/images/qmodem.png" />
+                                </a>
+                        </td>
+                        <td><a href="http://qodem.sourceforge.net/about.html#qmodem" target="_blank">QModem</a> is available for DOS/win32.</td>
+                </tr>
+
+
+	</tbody>
+</table>';	
+
+      // Create the block.
+      $block['subject'] = t('Telnet Clients Link Block');
+      $block['content'] = theme('telnet_clients', array(
+        'telnet_links' => variable_get('telnet_clients_display', 0), 
+        'path' => drupal_get_path('module', 'telnet_clients') 
+      ) 
+     );
+      break;
+}
+return $block;
+  }
+
+
+
+

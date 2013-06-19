@@ -1,0 +1,40 @@
+.telnet-table-link-block {
+
+        border:none;
+        width:90%;
+        margin:0 auto;  
+}
+
+.telnet-table-link-block tbody {
+
+border:none;
+ 
+}
+
+.telnet-table-link-block td { 
+
+	padding:6px; 
+	color:#fafafa; 
+	font-size:12px; 
+	vertical-align:top;
+}
+
+.telnet-table-link-block td img { 
+
+/*	height:32px; 
+	width:32px; */
+}
+
+.telnet-table-link-block td.img { 
+
+	padding-right:10px; 
+	text-align:center;
+}
+
+.telnet-table-link-block td.img a:hover { 
+	
+	border:none; opacity:.7;
+
+}
+
+.telnet-table-link-block img.termix { height:32px; width:64px;}

@@ -1,0 +1,7 @@
+name = Telnet Clients
+description = Block to display telnet clients
+core = 7.x
+package = BBS
+dependencies[] = block
+files[] = telnet_clients.module
+configure = admin/config/content/telnet_clients
