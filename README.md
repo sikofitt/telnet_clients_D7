@@ -1,2 +1,4 @@
-telnet_clients_D7
+Telnet Program Links and Downloads
 =================
+
+Drupal 7 Module that lists Telnet Program Links and Downloads
