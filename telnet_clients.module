@@ -152,74 +152,21 @@ function telnet_clients_block_view($delta = '') {
   $block = array();
   switch ($delta) {
     case 'telnet_clients':
-      
-	$path = drupal_get_path('module', 'telnet_clients');
-	$output = "";
 
-	$output .= '
-<table class="telnet-table-link-block">
-	<tbody>
-		<tr>
-			<td class="img">
-				<a href="http://syncterm.bbsdev.net/" target="_blank">
-					<img alt="SyncTerm" src="/'.$path.'/images/syncterm.png" />
-				</a>
-			</td>
-			<td>
-				<a href="http://syncterm.bbsdev.net/" target="_blank">SyncTERM</a>
-				is available for *nix/osx/win32 and a bunch of other oses.
-			</td>
-
-		</tr>
-		 <tr>
-                        <td class="img">
-                                <a href="http://sourceforge.net/projects/termix/" target="_blank">
-                                        <img class="termix" alt="mTelnet (OS/2, Win32)" src="/'.$path.'/images/termix.png" />
-                                </a>
-                        </td>
-                        <td><a href="http://sourceforge.net/projects/termix/" target="_blank">Termix</a> is available for *nix</td>
-                </tr>
-
-		<tr>
-			<td class="img">
-				<a href="http://mt32.bbses.info/" target="_blank">
-					<img alt="mTelnet (OS/2, Win32)" src="/'.$path.'/images/mtel.png" />
-				</a>
-			</td>
-			<td><a href="http://mt32.bbses.info/" target="_blank">mTelnet</a> is available for os2/win32.</td>
-		</tr>
-		<tr>
-                        <td class="img">
-                                <a href="http://sourceforge.net/projects/qodem/" target="_blank">
-                                        <img alt="Qodem (*nix, OS/2, Win32)" src="/'.$path.'/images/qodem.png" />
-                                </a>
-                        </td>
-                        <td><a href="http://sourceforge.net/projects/qodem/" target="_blank">Qodem</a> is available for *nix/osx/win32.</td>
-                </tr>
-		<tr>
-                        <td class="img">
-                                <a href="http://qodem.sourceforge.net/about.html#qmodem" target="_blank">
-                                        <img alt="QModem (DOS, Win32)" src="/'.$path.'/images/qmodem.png" />
-                                </a>
-                        </td>
-                        <td><a href="http://qodem.sourceforge.net/about.html#qmodem" target="_blank">QModem</a> is available for DOS/win32.</td>
-                </tr>
-
-
-	</tbody>
-</table>';	
+      $path = drupal_get_path('module', 'telnet_clients');
 
       // Create the block.
       $block['subject'] = t('Telnet Clients Link Block');
       $block['content'] = theme('telnet_clients', array(
         'telnet_links' => variable_get('telnet_clients_display', 0), 
         'path' => drupal_get_path('module', 'telnet_clients') 
-      ) 
-     );
-      break;
-}
-return $block;
+        ) 
+      );
+    break;
   }
+  
+  return $block;
+}
 
 
 
