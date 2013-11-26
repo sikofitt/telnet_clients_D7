@@ -9,7 +9,7 @@ function telnet_clients_install() { // Set default variables
 // Which links to display
 
 variable_set('telnet_clients_display',
-  Array(
+  array(
     'SyncTerm'  =>  'SyncTerm',
     'Termix'    =>  'Termix',
     'mTelnet'   =>  'mTelnet',

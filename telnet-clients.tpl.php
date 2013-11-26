@@ -72,6 +72,6 @@
         <a href="http://qodem.sourceforge.net/about.html#qmodem" target="_blank">QModem</a> is available for DOS/Win.
       </td>
     </tr>
-    <?php endif; ?>
+  <?php endif; ?>
   </tbody>
 </table>

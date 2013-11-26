@@ -7,7 +7,7 @@ function telnet_clients_help($path, $arg) {
 
   $output = '';
   
-  switch ($path) {
+  switch ($path):
     case 'admin/help#telnet_clients':
       $output .= t('Shows links for different telnet clients');
       break;
@@ -20,7 +20,7 @@ function telnet_clients_help($path, $arg) {
     case 'admin/modules#telnet_clients':
       $output .= t('Settings for Telnet Clients Module.');
       break;
-  }
+  endswitch;
 
   return $output;
 
@@ -78,7 +78,7 @@ function telnet_clients_menu() {
 
 function telnet_clients_options() {
 
-  if(variable_get('telnet_clients_display', 0) == 0) {
+  if(variable_get('telnet_clients_display', 0) == 0):
 
     variable_set('telnet_clients_display',
       Array(
@@ -90,7 +90,7 @@ function telnet_clients_options() {
       )
     );
        
-  }
+  endif;
 
   $form['telnet_clients_display'] = array(
     '#type' => 'checkboxes',
@@ -150,7 +150,7 @@ function telnet_clients_theme() {
  */
 function telnet_clients_block_view($delta = '') {
   $block = array();
-  switch ($delta) {
+  switch ($delta):
     case 'telnet_clients':
 
       $path = drupal_get_path('module', 'telnet_clients');
@@ -163,7 +163,7 @@ function telnet_clients_block_view($delta = '') {
         ) 
       );
     break;
-  }
+  endswitch;
   
   return $block;
 }
